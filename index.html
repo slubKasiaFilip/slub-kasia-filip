@@ -442,36 +442,221 @@ p.body-text + p.body-text {
    TIMELINE
    ========================================================= */
 
-.timeline-soon {
-  background: #fff;
-  border-radius: 16px;
-  padding: clamp(2.5rem, 5vw, 4rem);
-  text-align: center;
-  box-shadow: 0 4px 30px rgba(0,0,0,.05);
-  margin-top: 2rem;
+.timeline {
+  max-width: 560px;
+  margin: 2.5rem auto 0;
 }
 
-.timeline-soon svg {
-  width: 44px;
-  height: 44px;
-  color: var(--sage);
-  opacity: .55;
-  margin-bottom: 1rem;
+.tl-item {
+  display: grid;
+  grid-template-columns: 4.6rem 2.4rem 1fr;
+  column-gap: .4rem;
+  align-items: start;
 }
 
-.timeline-soon h4 {
+.tl-time {
+  text-align: right;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.35rem;
+  font-size: 1.9rem;
+  font-weight: 400;
+  line-height: 1;
   color: var(--charcoal);
-  margin-bottom: .5rem;
+  padding-top: .1rem;
 }
 
-.timeline-soon p {
-  font-size: .88rem;
+.tl-time small {
+  display: block;
+  margin-top: .35rem;
+  font-family: 'Jost', sans-serif;
+  font-size: .62rem;
+  font-weight: 400;
+  letter-spacing: .18em;
+  text-transform: uppercase;
   color: var(--text-light);
-  line-height: 1.7;
-  max-width: 400px;
-  margin: 0 auto;
+}
+
+/* oś czasu: kropka + linia */
+
+.tl-axis {
+  position: relative;
+  align-self: stretch;
+  min-height: 100%;
+}
+
+.tl-axis::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1px solid var(--gold-light);
+  transform: translateX(-50%);
+}
+
+.tl-dot {
+  position: absolute;
+  left: 50%;
+  top: .35rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: var(--cream);
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 5px rgba(184,147,90,.14);
+}
+
+.tl-item.start .tl-axis::before {
+  top: .9rem;
+}
+
+.tl-item.end .tl-axis::before {
+  bottom: auto;
+  height: .9rem;
+}
+
+.tl-item.end .tl-dot {
+  background: var(--gold);
+}
+
+.tl-item.soon .tl-axis::before {
+  border-left: 1px dashed var(--sage);
+  opacity: .7;
+}
+
+.tl-body {
+  padding-bottom: 2rem;
+}
+
+.tl-item.end .tl-body,
+.tl-item.soon .tl-body {
+  padding-bottom: 0;
+}
+
+.tl-body h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--charcoal);
+  margin-bottom: .3rem;
+}
+
+.tl-body p {
+  font-size: .85rem;
+  line-height: 1.6;
+  color: var(--text-light);
+}
+
+/* placeholder na kolejne wydarzenia */
+
+.tl-soon-card {
+  position: relative;
+  background: rgba(255,255,255,.6);
+  border: 1px dashed var(--sage-light);
+  border-radius: 14px;
+  padding: 1.3rem 1.4rem 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.tl-soon-head {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: .9rem;
+}
+
+.tl-soon-head svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--sage);
+}
+
+.tl-soon-head h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin: 0;
+}
+
+.tl-soon-card > p {
+  font-size: .82rem;
+  line-height: 1.65;
+  color: var(--text-light);
+  margin-bottom: 1.1rem;
+}
+
+.tl-ghosts {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.tl-ghost {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+
+.tl-ghost i {
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: .6rem;
+  border-radius: 6px;
+  background: var(--sage-light);
+}
+
+.tl-ghost b {
+  height: .6rem;
+  border-radius: 6px;
+  background: var(--warm);
+}
+
+.tl-ghost i,
+.tl-ghost b {
+  opacity: .8;
+  animation: ghostPulse 2.6s ease-in-out infinite;
+}
+
+.tl-ghost:nth-child(2) i,
+.tl-ghost:nth-child(2) b {
+  animation-delay: .5s;
+}
+
+.tl-ghost:nth-child(3) i,
+.tl-ghost:nth-child(3) b {
+  animation-delay: 1s;
+}
+
+@keyframes ghostPulse {
+  0%, 100% { opacity: .35; }
+  50%      { opacity: .9; }
+}
+
+@media(max-width:420px) {
+  .tl-item {
+    grid-template-columns: 3.6rem 1.8rem 1fr;
+    column-gap: .3rem;
+  }
+
+  .tl-time {
+    font-size: 1.55rem;
+  }
+
+  .tl-body h4 {
+    font-size: 1.2rem;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .tl-ghost i,
+  .tl-ghost b {
+    animation: none;
+    opacity: .6;
+  }
 }
 
 
@@ -547,48 +732,347 @@ p.body-text + p.body-text {
 
 
 /* =========================================================
-   TABLES
+   TABLES — WYSZUKIWARKA + ROZKŁAD
    ========================================================= */
 
-.tables-card {
+.finder {
   background: #fff;
   border-radius: 16px;
-  padding: clamp(2rem, 5vw, 3rem);
+  padding: clamp(1.6rem, 4vw, 2.4rem);
   text-align: center;
   box-shadow: 0 4px 30px rgba(0,0,0,.05);
   margin-top: 2rem;
 }
 
-.tables-card .lock-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 1rem;
-  color: var(--sage-light);
-  opacity: .7;
-}
-
-.tables-card h4 {
+.finder h4 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  font-weight: 500;
   color: var(--charcoal);
-  margin-bottom: .5rem;
+  margin-bottom: .3rem;
 }
 
-.tables-card p {
-  font-size: .88rem;
+.finder-sub {
+  font-size: .85rem;
   color: var(--text-light);
-  line-height: 1.7;
+  line-height: 1.6;
+  margin-bottom: 1.3rem;
 }
 
-.tables-date {
-  display: inline-block;
-  margin-top: .8rem;
-  padding: .4rem 1.2rem;
-  border: 1px solid var(--sage-light);
-  border-radius: 50px;
-  font-size: .78rem;
-  letter-spacing: .15em;
+.finder-field {
+  position: relative;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.finder-field > svg {
+  position: absolute;
+  left: 1.15rem;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
   color: var(--sage);
+  pointer-events: none;
+}
+
+.finder-input {
+  width: 100%;
+  padding: .95rem 2.8rem .95rem 3rem;
+  border-radius: 50px;
+  border: 1px solid var(--sage-light);
+  background: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  outline: none;
+  transition: border-color .25s, box-shadow .25s, background .25s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.finder-input::placeholder {
+  color: var(--text-light);
+  opacity: .8;
+}
+
+.finder-input:focus {
+  border-color: var(--gold);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(184,147,90,.14);
+}
+
+.finder-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.finder-clear {
+  position: absolute;
+  right: .55rem;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  transform: translateY(-50%);
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+}
+
+.finder-clear.show {
+  display: flex;
+}
+
+.finder-clear:hover {
+  background: var(--warm);
+}
+
+.finder-clear svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.finder-status {
+  min-height: 1.4rem;
+  margin-top: 1rem;
+  font-size: .8rem;
+  letter-spacing: .04em;
+  color: var(--text-light);
+}
+
+.finder-status strong {
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+.finder-results {
+  list-style: none;
+  max-width: 440px;
+  margin: .4rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.finder-result {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .75rem 1rem .75rem 1.2rem;
+  border-radius: 14px;
+  border: 1px solid var(--warm);
+  background: var(--cream);
+  font-family: 'Jost', sans-serif;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+}
+
+.finder-result:hover,
+.finder-result:focus-visible {
+  border-color: var(--gold);
+  transform: translateX(3px);
+  box-shadow: 0 4px 14px rgba(0,0,0,.06);
+  outline: none;
+}
+
+.finder-result .who {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+.finder-result .where {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .3rem .85rem;
+  border-radius: 50px;
+  background: var(--gold);
+  color: #fff;
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.finder-result .where b {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.finder-more {
+  font-size: .78rem;
+  color: var(--text-light);
+  padding-top: .2rem;
+}
+
+/* karty stolików */
+
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+.table-card {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.4rem 1.4rem 1.2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,.04);
+  border: 1px solid transparent;
+  transition: opacity .35s, border-color .35s, box-shadow .35s, transform .35s;
+}
+
+.table-card.dim {
+  opacity: .38;
+}
+
+.table-card.hit {
+  border-color: var(--gold);
+  box-shadow: 0 8px 34px rgba(184,147,90,.22);
+}
+
+.table-card.pulse {
+  animation: tablePulse 1.4s ease-out 1;
+}
+
+@keyframes tablePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(184,147,90,.55); }
+  100% { box-shadow: 0 0 0 22px rgba(184,147,90,0); }
+}
+
+.table-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: .9rem;
+  border-bottom: 1px solid var(--warm);
+}
+
+.table-round {
+  flex-shrink: 0;
+  width: 88px;
+  height: 88px;
+}
+
+.table-round .top {
+  fill: var(--cream);
+  stroke: var(--gold-light);
+  stroke-width: 1.5;
+  transition: fill .35s, stroke .35s;
+}
+
+.table-round .seat {
+  fill: var(--sage-light);
+  transition: fill .3s, r .3s;
+}
+
+.table-round .seat.on {
+  fill: var(--gold);
+  r: 5.2;
+}
+
+.table-round text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 500;
+  fill: var(--charcoal);
+}
+
+.table-card.hit .table-round .top {
+  fill: #fff;
+  stroke: var(--gold);
+}
+
+.table-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--charcoal);
+}
+
+.table-count {
+  margin-top: .3rem;
+  font-size: .7rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.table-guests {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+
+.table-guests li {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .32rem .6rem;
+  border-radius: 8px;
+  font-size: .92rem;
+  color: var(--text);
+  transition: background .3s, color .3s;
+}
+
+.table-guests li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sage-light);
+  transition: background .3s, transform .3s;
+}
+
+.table-guests li.match {
+  background: rgba(184,147,90,.16);
+  color: var(--charcoal);
+  font-weight: 500;
+}
+
+.table-guests li.match::before {
+  background: var(--gold);
+  transform: scale(1.5);
+}
+
+@media(max-width:640px) {
+  .tables-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .finder-result .who {
+    font-size: 1.05rem;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .table-card.pulse {
+    animation: none;
+  }
 }
 
 
@@ -643,56 +1127,6 @@ p.body-text + p.body-text {
   .dress-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-
-
-/* =========================================================
-   GIFTS
-   ========================================================= */
-
-.gifts-section {
-  text-align: center;
-}
-
-.gifts-section p {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.gift-icon {
-  margin: 0 auto 1.5rem;
-  width: 64px;
-  height: 64px;
-}
-
-.gift-icon svg {
-  width: 100%;
-  height: 100%;
-  color: var(--gold);
-  opacity: .6;
-}
-
-.gift-note {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.5rem 2rem;
-  margin-top: 2rem;
-  border-left: 3px solid var(--gold-light);
-  text-align: left;
-  max-width: 520px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.gift-note p {
-  font-size: .88rem;
-  color: var(--text);
-  line-height: 1.7;
-}
-
-.gift-note strong {
-  color: var(--charcoal);
-  font-weight: 500;
 }
 
 
@@ -789,6 +1223,43 @@ p.body-text + p.body-text {
   color: var(--charcoal);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0,0,0,.2);
+}
+
+
+/* wyszarzone potwierdzenie — termin minął */
+
+.rsvp-section.closed {
+  background: #DCD9D3;
+}
+
+.rsvp-section.closed::before,
+.rsvp-section.closed::after {
+  border-color: #A8A59F;
+}
+
+.rsvp-section.closed .section-label {
+  color: #8F8C86;
+}
+
+.rsvp-section.closed .section-title,
+.rsvp-section.closed .section-title .accent {
+  color: #8A8781;
+}
+
+.rsvp-section.closed p {
+  color: #85827C;
+}
+
+.rsvp-section.closed .rsvp-deadline {
+  color: #85827C !important;
+}
+
+.rsvp-btn:disabled {
+  background: #BDBAB3;
+  color: #EFEDE9;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 
@@ -1334,28 +1805,58 @@ footer p {
     <span class="line"></span>
   </div>
 
-  <div class="timeline-soon">
+  <div class="timeline">
 
-    <svg viewBox="0 0 24 24"
-         fill="none"
-         stroke="currentColor"
-         stroke-width="1.5"
-         stroke-linecap="round"
-         stroke-linejoin="round">
+    <div class="tl-item start">
+      <div class="tl-time">17:00</div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Rozpoczęcie uroczystości</h4>
+        <p>Villa Omnia · Trębki Nowe</p>
+      </div>
+    </div>
 
-      <circle cx="12" cy="12" r="10"/>
-      <polyline points="12 6 12 12 16 14"/>
+    <div class="tl-item soon">
+      <div class="tl-time"></div>
+      <div class="tl-axis"></div>
+      <div class="tl-body">
+        <div class="tl-soon-card">
 
-    </svg>
+          <div class="tl-soon-head">
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.5"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <h4>Kolejne punkty programu</h4>
+          </div>
 
-    <h4>
-      Szczegółowy plan dnia pojawi się wkrótce
-    </h4>
+          <p>
+            Szczegóły pojawią się bliżej daty —
+            zajrzyjcie tu ponownie, a poznacie plan minutę po minucie.
+          </p>
 
-    <p>
-      Pracujemy nad harmonogramem — wróćcie tutaj bliżej daty,
-      a poznacie plan minutę po minucie.
-    </p>
+          <div class="tl-ghosts" aria-hidden="true">
+            <div class="tl-ghost"><i></i><b style="width:62%"></b></div>
+            <div class="tl-ghost"><i></i><b style="width:78%"></b></div>
+            <div class="tl-ghost"><i></i><b style="width:48%"></b></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item end">
+      <div class="tl-time">05:00<small>nad ranem</small></div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Koniec uroczystości</h4>
+      </div>
+    </div>
 
   </div>
 
@@ -1459,38 +1960,58 @@ footer p {
     <span class="line"></span>
   </div>
 
-  <div class="tables-card">
+  <div class="finder">
 
-    <svg
-      class="lock-icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round">
+    <h4>Znajdź swoje miejsce</h4>
 
-      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      <circle cx="12" cy="16.5" r="1.5"/>
-
-    </svg>
-
-    <h4>
-      Rozkład stolików pojawi się wkrótce
-    </h4>
-
-    <p>
-      Informacja o rozmieszczeniu gości będzie dostępna
-      po zamknięciu listy potwierdzeń. Wróć tutaj po podanej dacie,
-      a znajdziesz swoje miejsce.
+    <p class="finder-sub">
+      Wpisz swoje imię — pokażemy Ci, przy którym stoliku siedzisz.
     </p>
 
-    <span class="tables-date">
-      dostępne od 15.09.2026
-    </span>
+    <div class="finder-field">
+
+      <svg viewBox="0 0 24 24"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="1.8"
+           stroke-linecap="round"
+           stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+
+      <input
+        id="finderInput"
+        class="finder-input"
+        type="search"
+        placeholder="np. Kuba, Ciocia Basia…"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        aria-label="Wyszukaj gościa">
+
+      <button
+        id="finderClear"
+        class="finder-clear"
+        type="button"
+        aria-label="Wyczyść wyszukiwanie">
+
+        <svg viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+
+      </button>
+
+    </div>
+
+    <p class="finder-status" id="finderStatus" aria-live="polite"></p>
+
+    <ul class="finder-results" id="finderResults"></ul>
 
   </div>
+
+  <div class="tables-grid" id="tablesGrid"></div>
 
 </section>
 
@@ -1563,68 +2084,6 @@ footer p {
 
 
 <!-- =======================================================
-     PREZENTY
-     ======================================================= -->
-
-<section class="gifts-section reveal">
-
-  <p class="section-label">
-    prezenty
-  </p>
-
-  <h2 class="section-title">
-    Kilka słów o <span class="accent">prezentach</span>
-  </h2>
-
-  <div class="leaf-divider">
-    <span class="line"></span>
-
-    <svg viewBox="0 0 24 24">
-      <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66C7.72 17.14 9.46 12 17 10V8z"/>
-      <path d="M20.59 2.41a1.99 1.99 0 00-2.83 0L12 8.17l2.83 2.83 5.76-5.76a2 2 0 000-2.83z" opacity=".5"/>
-    </svg>
-
-    <span class="line"></span>
-  </div>
-
-  <div class="gift-icon">
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.2"
-      stroke-linecap="round"
-      stroke-linejoin="round">
-
-      <rect x="2" y="7" width="20" height="4" rx="1"/>
-      <rect x="4" y="11" width="16" height="10" rx="1"/>
-      <line x1="12" y1="7" x2="12" y2="21"/>
-      <path d="M12 7c-1.5-2-4-3-4-3s1-.5 4 3c3-3.5 4-3 4-3s-2.5 1-4 3z"/>
-
-    </svg>
-
-  </div>
-
-  <p class="body-text" style="margin:0 auto">
-    Największym prezentem jest Wasza obecność.
-    Jeśli jednak chcielibyście nas obdarować —
-    będziemy wdzięczni za kopertę wręczoną osobiście
-    w dniu wesela.
-  </p>
-
-  <div class="gift-note">
-    <p>
-      Wolisz przelew? Nie ma problemu —
-      <strong>skontaktuj się z kimś z Młodych</strong>,
-      chętnie podamy numer konta.
-    </p>
-  </div>
-
-</section>
-
-
-<!-- =======================================================
      RSVP
      ======================================================= -->
 
@@ -1632,31 +2091,30 @@ footer p {
   class="reveal"
   style="max-width:100%;padding-left:0;padding-right:0">
 
-  <div class="rsvp-section">
+  <div class="rsvp-section closed">
 
     <p class="section-label">
       potwierdzenie
     </p>
 
     <h2 class="section-title">
-      Czy <span class="accent">będziesz?</span>
+      Czas <span class="accent">minął</span>
     </h2>
 
     <p>
-      Daj nam znać, czy będziesz z nami!
-      Każda obecność jest dla nas ważna.
-      Potwierdź do podanej daty — pomoże nam to w organizacji.
+      Lista potwierdzeń została zamknięta.
     </p>
 
     <p class="rsvp-deadline">
-      Prosimy o potwierdzenie do 30.08.2026
+      Termin upłynął 30.08.2026
     </p>
 
     <button
       class="rsvp-btn"
-      onclick="openRsvpModal()">
+      type="button"
+      disabled>
 
-      Potwierdź obecność
+      Potwierdzenia zamknięte
 
     </button>
 
@@ -1845,14 +2303,15 @@ footer p {
 
     <details class="faq-item">
       <summary>
-        Do kiedy muszę potwierdzić obecność?
+        Czy nadal mogę potwierdzić obecność?
       </summary>
 
       <p>
-        Prosimy o potwierdzenie do
-        <strong>30 sierpnia 2026</strong>.
-        Pomaga nam to w planowaniu miejsc,
-        menu i logistyki. Im szybciej, tym lepiej!
+        Termin potwierdzeń minął
+        <strong>30 sierpnia 2026</strong>
+        i lista jest już zamknięta.
+        Jeśli masz pytania lub coś się zmieniło —
+        skontaktuj się bezpośrednio z Kasią lub Filipem.
       </p>
     </details>
 
@@ -2171,13 +2630,234 @@ function closeRsvpModal(event) {
 
 
 /* =========================================================
+   ROZKŁAD STOLIKÓW + WYSZUKIWARKA
+   ========================================================= */
+
+const TABLES = [
+  { n: 1, guests: ['Mama Justyna', 'Tata Piotr', 'Babcia Jagoda', 'Blanka', 'Ola', 'Kinga', 'Krzysiek', 'Kamil', 'Janusz', 'Sylwia'] },
+  { n: 2, guests: ['Weronika', 'Mikołaj', 'Nikodem', 'Mariola', 'Darek', 'Daniel', 'Karina', 'Zuzia', 'Wiktor', 'Artur', 'Kamila'] },
+  { n: 3, guests: ['Kuba', 'Natalia', 'Patryk', 'Julka', 'Kamilek', 'Józek', 'Natalia'] },
+  { n: 4, guests: ['Ola', 'Mikołaj', 'Bejo', 'Kamil', 'Gracjan', 'Maja', 'Mateusz', 'Nikola'] },
+  { n: 5, guests: ['Julia', 'Sandra', 'Wiktor', 'Kacper', 'Zosia', 'Justyna', 'Nataniel'] },
+  { n: 6, guests: ['Malwina', 'Babcia Basia', 'Ciocia Bogusia', 'Róża', 'Ciocia Asia', 'Dziadek Jurek', 'Babcia Agata'] },
+  { n: 7, guests: ['Tata Wojtek', 'Mama Madzia', 'Marcin', 'Edyta', 'Ciocia Kasia', 'Wujek Dominik', 'Wujek Jacek', 'Ciocia Asia', 'Ciocia Asia', 'Wujek Michał'] },
+  { n: 8, guests: ['Kasia', 'Marcin', 'Marysia', 'Wujek Olek', 'Ciocia Basia', 'Wujek Adam', 'Ciocia Ania'] }
+];
+
+(function initSeating() {
+
+  const grid    = document.getElementById('tablesGrid');
+  const input   = document.getElementById('finderInput');
+  const clear   = document.getElementById('finderClear');
+  const status  = document.getElementById('finderStatus');
+  const results = document.getElementById('finderResults');
+
+  if (!grid || !input) return;
+
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const MAX_RESULTS = 8;
+
+  // małe litery, bez polskich znaków — "Józek" znajdziesz wpisując "jozek"
+  const norm = s =>
+    s.toLowerCase()
+      .replace(/ł/g, 'l')
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '');
+
+  const svgEl = (name, attrs) => {
+    const node = document.createElementNS(SVG_NS, name);
+    Object.entries(attrs).forEach(([k, v]) => node.setAttribute(k, v));
+    return node;
+  };
+
+  const plural = n =>
+    n === 1 ? 'osobę' : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? 'osoby' : 'osób';
+
+  const index = [];
+  const cards = {};
+
+
+  /* ---------- budowanie kart ---------- */
+
+  TABLES.forEach(table => {
+
+    const count = table.guests.length;
+
+    const card = document.createElement('article');
+    card.className = 'table-card';
+    card.id = 'stolik-' + table.n;
+
+    // okrągły stół widziany z góry, miejsca = kropki wokół
+    const svg = svgEl('svg', { viewBox: '0 0 88 88', class: 'table-round', 'aria-hidden': 'true' });
+    svg.appendChild(svgEl('circle', { class: 'top', cx: 44, cy: 44, r: 22 }));
+
+    const seats = table.guests.map((_, i) => {
+      const angle = -Math.PI / 2 + (i / count) * Math.PI * 2;
+      const seat = svgEl('circle', {
+        class: 'seat',
+        cx: (44 + Math.cos(angle) * 34).toFixed(2),
+        cy: (44 + Math.sin(angle) * 34).toFixed(2),
+        r: 3.8
+      });
+      svg.appendChild(seat);
+      return seat;
+    });
+
+    const label = svgEl('text', { x: 44, y: 44, 'text-anchor': 'middle', 'dominant-baseline': 'central' });
+    label.textContent = table.n;
+    svg.appendChild(label);
+
+    const head = document.createElement('div');
+    head.className = 'table-head';
+    head.appendChild(svg);
+
+    const titles = document.createElement('div');
+    titles.innerHTML = '<div class="table-title"></div><div class="table-count"></div>';
+    titles.children[0].textContent = 'Stolik ' + table.n;
+    titles.children[1].textContent = count + ' ' + (count === 1 ? 'osoba' : (count % 10 >= 2 && count % 10 <= 4 ? 'osoby' : 'osób'));
+    head.appendChild(titles);
+
+    const list = document.createElement('ul');
+    list.className = 'table-guests';
+
+    table.guests.forEach((name, i) => {
+      const li = document.createElement('li');
+      li.textContent = name;
+      list.appendChild(li);
+      index.push({ name, words: norm(name).split(/\s+/), table: table.n, li, seat: seats[i] });
+    });
+
+    card.appendChild(head);
+    card.appendChild(list);
+    grid.appendChild(card);
+    cards[table.n] = card;
+  });
+
+
+  /* ---------- przeskok do stolika ---------- */
+
+  function focusTable(n) {
+    const card = cards[n];
+    if (!card) return;
+
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    card.classList.remove('pulse');
+    void card.offsetWidth;
+    card.classList.add('pulse');
+  }
+
+
+  /* ---------- wyszukiwanie ---------- */
+
+  function search() {
+
+    const query = input.value;
+    clear.classList.toggle('show', query.length > 0);
+
+    index.forEach(e => {
+      e.li.classList.remove('match');
+      e.seat.classList.remove('on');
+    });
+
+    Object.values(cards).forEach(c => c.classList.remove('hit', 'dim'));
+    results.replaceChildren();
+
+    const tokens = norm(query).split(/\s+/).filter(Boolean);
+
+    if (!tokens.length) {
+      status.textContent = '';
+      return;
+    }
+
+    // każde wpisane słowo musi zaczynać któreś ze słów w imieniu ("ola" ≠ "Mikołaj")
+    const hits = index.filter(e =>
+      tokens.every(t => e.words.some(w => w.startsWith(t)))
+    );
+
+    if (!hits.length) {
+      status.textContent = 'Nie znaleźliśmy „' + query.trim() + '". Spróbuj samego imienia albo napisz do nas.';
+      return;
+    }
+
+    const hitTables = new Set(hits.map(h => h.table));
+
+    hits.forEach(h => {
+      h.li.classList.add('match');
+      h.seat.classList.add('on');
+    });
+
+    Object.entries(cards).forEach(([n, c]) =>
+      c.classList.add(hitTables.has(Number(n)) ? 'hit' : 'dim')
+    );
+
+    status.textContent = 'Znaleziono ' + hits.length + ' ' + plural(hits.length);
+
+    hits.slice(0, MAX_RESULTS).forEach(h => {
+
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'finder-result';
+
+      const who = document.createElement('span');
+      who.className = 'who';
+      who.textContent = h.name;
+
+      const where = document.createElement('span');
+      where.className = 'where';
+      where.append('Stolik ');
+      const num = document.createElement('b');
+      num.textContent = h.table;
+      where.appendChild(num);
+
+      btn.append(who, where);
+      btn.addEventListener('click', () => focusTable(h.table));
+
+      li.appendChild(btn);
+      results.appendChild(li);
+    });
+
+    if (hits.length > MAX_RESULTS) {
+      const more = document.createElement('li');
+      more.className = 'finder-more';
+      more.textContent = '…i ' + (hits.length - MAX_RESULTS) + ' więcej — zobacz podświetlone stoliki poniżej';
+      results.appendChild(more);
+    }
+  }
+
+  input.addEventListener('input', search);
+
+  input.addEventListener('keydown', e => {
+
+    if (e.key === 'Escape') {
+      input.value = '';
+      search();
+    }
+
+    if (e.key === 'Enter') {
+      const first = results.querySelector('.finder-result');
+      if (first) first.click();
+    }
+  });
+
+  clear.addEventListener('click', () => {
+    input.value = '';
+    search();
+    input.focus();
+  });
+
+})();
+
+
+/* =========================================================
    COUNTDOWN
    ========================================================= */
 
 function updateCountdown() {
 
   const weddingDate =
-    new Date('2026-10-10T14:00:00+02:00');
+    new Date('2026-10-10T17:00:00+02:00');
 
   const now = new Date();
 
