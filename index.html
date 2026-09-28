@@ -520,17 +520,11 @@ p.body-text + p.body-text {
   background: var(--gold);
 }
 
-.tl-item.soon .tl-axis::before {
-  border-left: 1px dashed var(--sage);
-  opacity: .7;
-}
-
 .tl-body {
   padding-bottom: 2rem;
 }
 
-.tl-item.end .tl-body,
-.tl-item.soon .tl-body {
+.tl-item.end .tl-body {
   padding-bottom: 0;
 }
 
@@ -549,91 +543,141 @@ p.body-text + p.body-text {
   color: var(--text-light);
 }
 
-/* placeholder na kolejne wydarzenia */
+/* link do sekcji noclegów */
 
-.tl-soon-card {
-  position: relative;
-  background: rgba(255,255,255,.6);
-  border: 1px dashed var(--sage-light);
-  border-radius: 14px;
-  padding: 1.3rem 1.4rem 1.4rem;
-  margin-bottom: 2rem;
-}
-
-.tl-soon-head {
-  display: flex;
+.tl-link {
+  display: inline-flex;
   align-items: center;
-  gap: .6rem;
-  margin-bottom: .9rem;
+  gap: .35rem;
+  margin-top: .45rem;
+  font-size: .8rem;
+  letter-spacing: .04em;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold-light);
+  padding-bottom: .1rem;
+  transition: color .25s, border-color .25s;
 }
 
-.tl-soon-head svg {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
+.tl-link:hover {
+  color: var(--charcoal);
+  border-color: var(--charcoal);
+}
+
+.tl-link svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform .25s;
+}
+
+.tl-link:hover svg {
+  transform: translateX(3px);
+}
+
+/* rozwijane menu */
+
+.tl-menu {
+  margin-top: .5rem;
+}
+
+.tl-menu summary {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .4rem 1rem;
+  border-radius: 50px;
+  border: 1px solid var(--sage-light);
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
   color: var(--sage);
+  cursor: pointer;
+  list-style: none;
+  transition: background .25s, color .25s, border-color .25s;
 }
 
-.tl-soon-head h4 {
+.tl-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.tl-menu summary::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform .3s;
+}
+
+.tl-menu[open] summary::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+.tl-menu summary:hover,
+.tl-menu[open] summary {
+  background: var(--sage);
+  border-color: var(--sage);
+  color: #fff;
+}
+
+.menu-card {
+  margin-top: .9rem;
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.2rem 1.3rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,.05);
+  animation: fadeUp .4s ease;
+}
+
+.menu-course + .menu-course {
+  margin-top: .9rem;
+  padding-top: .9rem;
+  border-top: 1px solid var(--warm);
+}
+
+.menu-label {
+  display: block;
+  font-size: .62rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: .2rem;
+}
+
+.tl-body .menu-dish {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.15rem;
   font-weight: 500;
+  line-height: 1.25;
   color: var(--charcoal);
-  margin: 0;
 }
 
-.tl-soon-card > p {
+.tl-body .menu-desc {
   font-size: .82rem;
-  line-height: 1.65;
-  color: var(--text-light);
-  margin-bottom: 1.1rem;
+  line-height: 1.5;
 }
 
-.tl-ghosts {
-  display: flex;
-  flex-direction: column;
-  gap: .6rem;
+.tl-body .menu-note {
+  margin-top: 1rem;
+  padding: .7rem .9rem;
+  border-radius: 10px;
+  background: var(--cream);
+  font-size: .8rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--text);
 }
 
-.tl-ghost {
-  display: flex;
-  align-items: center;
-  gap: .8rem;
-}
-
-.tl-ghost i {
-  flex-shrink: 0;
-  width: 2.4rem;
-  height: .6rem;
-  border-radius: 6px;
-  background: var(--sage-light);
-}
-
-.tl-ghost b {
-  height: .6rem;
-  border-radius: 6px;
-  background: var(--warm);
-}
-
-.tl-ghost i,
-.tl-ghost b {
-  opacity: .8;
-  animation: ghostPulse 2.6s ease-in-out infinite;
-}
-
-.tl-ghost:nth-child(2) i,
-.tl-ghost:nth-child(2) b {
-  animation-delay: .5s;
-}
-
-.tl-ghost:nth-child(3) i,
-.tl-ghost:nth-child(3) b {
-  animation-delay: 1s;
-}
-
-@keyframes ghostPulse {
-  0%, 100% { opacity: .35; }
-  50%      { opacity: .9; }
+@media(prefers-reduced-motion:reduce) {
+  .menu-card {
+    animation: none;
+  }
 }
 
 @media(max-width:420px) {
@@ -650,15 +694,6 @@ p.body-text + p.body-text {
     font-size: 1.2rem;
   }
 }
-
-@media(prefers-reduced-motion:reduce) {
-  .tl-ghost i,
-  .tl-ghost b {
-    animation: none;
-    opacity: .6;
-  }
-}
-
 
 /* =========================================================
    LOCATION
@@ -1071,6 +1106,238 @@ p.body-text + p.body-text {
 
 @media(prefers-reduced-motion:reduce) {
   .table-card.pulse {
+    animation: none;
+  }
+}
+
+
+/* =========================================================
+   NOCLEGI — GDZIE ŚPISZ
+   ========================================================= */
+
+#gdzie-spisz {
+  scroll-margin-top: 1rem;
+}
+
+.finder-result .with {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: .72rem;
+  font-weight: 300;
+  color: var(--text-light);
+  margin-top: .1rem;
+}
+
+.finder-result .where.place {
+  letter-spacing: .08em;
+  font-size: .66rem;
+  white-space: nowrap;
+}
+
+.stay-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  margin-top: 2rem;
+  align-items: stretch;
+}
+
+.stay-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem 1.4rem 1.2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,.04);
+  border: 1px solid transparent;
+  transition: opacity .35s, border-color .35s, box-shadow .35s;
+}
+
+.stay-card.dim {
+  opacity: .38;
+}
+
+.stay-card.hit {
+  border-color: var(--gold);
+  box-shadow: 0 8px 34px rgba(184,147,90,.22);
+}
+
+.stay-card.pulse {
+  animation: tablePulse 1.4s ease-out 1;
+}
+
+.stay-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: .9rem;
+  border-bottom: 1px solid var(--warm);
+}
+
+.stay-icon {
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 1.5px solid var(--gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+
+.stay-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.stay-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--charcoal);
+}
+
+.stay-sub {
+  margin-top: .2rem;
+  font-size: .8rem;
+  color: var(--text-light);
+}
+
+.stay-sub a {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold-light);
+}
+
+.stay-count {
+  margin-top: .3rem;
+  font-size: .7rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.stay-facts {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+
+.stay-facts li {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .35rem .8rem;
+  border-radius: 50px;
+  background: rgba(139,157,131,.12);
+  font-size: .78rem;
+  color: var(--charcoal);
+}
+
+.stay-facts svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: var(--sage);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.stay-transport {
+  background: var(--cream);
+  border: 1px dashed var(--gold-light);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.stay-transport p {
+  font-size: .82rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: .8rem;
+}
+
+.stay-transport strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin-bottom: .2rem;
+}
+
+.nowrap {
+  white-space: nowrap;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+.stay-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+
+.stay-list li {
+  display: flex;
+  align-items: baseline;
+  gap: .7rem;
+  padding: .35rem .6rem;
+  border-radius: 8px;
+  font-size: .92rem;
+  line-height: 1.45;
+  color: var(--text);
+  transition: background .3s;
+}
+
+.stay-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sage-light);
+  transform: translateY(-.15em);
+  transition: background .3s;
+}
+
+.stay-list li.match {
+  background: rgba(184,147,90,.16);
+  color: var(--charcoal);
+}
+
+.stay-list li.match::before {
+  background: var(--gold);
+}
+
+.stay-list .person.match {
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+@media(max-width:640px) {
+  .stay-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width:420px) {
+  .finder-result {
+    flex-wrap: wrap;
+    gap: .4rem;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .stay-card.pulse {
     animation: none;
   }
 }
@@ -1808,45 +2075,148 @@ footer p {
   <div class="timeline">
 
     <div class="tl-item start">
-      <div class="tl-time">17:00</div>
+      <div class="tl-time">15:00</div>
       <div class="tl-axis"><span class="tl-dot"></span></div>
       <div class="tl-body">
-        <h4>Rozpoczęcie uroczystości</h4>
-        <p>Villa Omnia · Trębki Nowe</p>
+        <h4>Zameldowanie gości</h4>
+        <p>W Villi Omnia oraz w Hotelu Royal Modlin</p>
+        <a class="tl-link" href="#gdzie-spisz">
+          Kliknij, aby sprawdzić, gdzie śpisz
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
 
-    <div class="tl-item soon">
-      <div class="tl-time"></div>
-      <div class="tl-axis"></div>
+    <div class="tl-item">
+      <div class="tl-time">17:00</div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
       <div class="tl-body">
-        <div class="tl-soon-card">
+        <h4>Ceremonia</h4>
+        <p>W ogrodzie Villi Omnia</p>
+      </div>
+    </div>
 
-          <div class="tl-soon-head">
-            <svg viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="1.5"
-                 stroke-linecap="round"
-                 stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
-            <h4>Kolejne punkty programu</h4>
+    <div class="tl-item">
+      <div class="tl-time">17:45</div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Pierwszy taniec</h4>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-time">18:00</div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Obiad</h4>
+
+        <details class="tl-menu">
+          <summary>Zobacz menu</summary>
+
+          <div class="menu-card">
+
+            <div class="menu-course">
+              <span class="menu-label">Przystawka</span>
+              <p class="menu-dish">Rostbef pieczony</p>
+              <p class="menu-desc">podawany z pianką chrzanową, oprószony parmezanem</p>
+            </div>
+
+            <div class="menu-course">
+              <span class="menu-label">Zupa</span>
+              <p class="menu-dish">Krem z pachnących pomidorów</p>
+              <p class="menu-desc">z bazylią oraz gęstą wiejską śmietaną</p>
+            </div>
+
+            <div class="menu-course">
+              <span class="menu-label">Danie główne</span>
+              <p class="menu-dish">Polędwiczka wieprzowa w bekonie</p>
+              <p class="menu-desc">z sosem z grzybów leśnych, puree z buraków i ziemniakiem hasselback</p>
+            </div>
+
+            <p class="menu-note">
+              Dla gości na diecie wegetariańskiej przygotowaliśmy menu wegetariańskie,
+              a dla najmłodszych — menu dziecięce.
+            </p>
+
           </div>
+        </details>
+      </div>
+    </div>
 
-          <p>
-            Szczegóły pojawią się bliżej daty —
-            zajrzyjcie tu ponownie, a poznacie plan minutę po minucie.
-          </p>
+    <div class="tl-item">
+      <div class="tl-time">18:30</div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Życzenia dla Pary Młodej</h4>
+      </div>
+    </div>
 
-          <div class="tl-ghosts" aria-hidden="true">
-            <div class="tl-ghost"><i></i><b style="width:62%"></b></div>
-            <div class="tl-ghost"><i></i><b style="width:78%"></b></div>
-            <div class="tl-ghost"><i></i><b style="width:48%"></b></div>
+    <div class="tl-item">
+      <div class="tl-time">20:00</div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Szybkie fotki</h4>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-time">20:30</div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Serwis bezy</h4>
+        <p>Przy akompaniamencie muzyki na żywo</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-time">20:45</div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Przemówienia</h4>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-time">22:00</div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Serwis ciepłego dania</h4>
+
+        <details class="tl-menu">
+          <summary>Zobacz menu</summary>
+
+          <div class="menu-card">
+
+            <div class="menu-course">
+              <span class="menu-label">Danie ciepłe</span>
+              <p class="menu-dish">Lasagne</p>
+            </div>
+
+            <div class="menu-course">
+              <span class="menu-label">Wersja wegetariańska</span>
+              <p class="menu-dish">Lasagne wegetariańska</p>
+            </div>
+
           </div>
+        </details>
+      </div>
+    </div>
 
-        </div>
+    <div class="tl-item">
+      <div class="tl-time">00:00<small>północ</small></div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Oczepiny</h4>
+        <p>Zabawy pozostaną niespodzianką!</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-time">01:00</div>
+      <div class="tl-axis"><span class="tl-dot"></span></div>
+      <div class="tl-body">
+        <h4>Zupa po północy</h4>
+        <p>Żurek oraz barszcz z krokietem</p>
       </div>
     </div>
 
@@ -1854,7 +2224,8 @@ footer p {
       <div class="tl-time">05:00<small>nad ranem</small></div>
       <div class="tl-axis"><span class="tl-dot"></span></div>
       <div class="tl-body">
-        <h4>Koniec uroczystości</h4>
+        <h4>Koniec imprezy</h4>
+        <p>Wszystko, co piękne, kiedyś się kończy :(</p>
       </div>
     </div>
 
@@ -1929,6 +2300,170 @@ footer p {
       </a>
 
     </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     NOCLEGI
+     ======================================================= -->
+
+<section id="gdzie-spisz" class="reveal">
+
+  <p class="section-label">
+    noclegi
+  </p>
+
+  <h2 class="section-title">
+    Gdzie <span class="accent">śpisz?</span>
+  </h2>
+
+  <div class="leaf-divider">
+    <span class="line"></span>
+
+    <svg viewBox="0 0 24 24">
+      <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66C7.72 17.14 9.46 12 17 10V8z"/>
+      <path d="M20.59 2.41a1.99 1.99 0 00-2.83 0L12 8.17l2.83 2.83 5.76-5.76a2 2 0 000-2.83z" opacity=".5"/>
+    </svg>
+
+    <span class="line"></span>
+  </div>
+
+  <p class="body-text">
+    Nocleg zapewniamy w dwóch miejscach. Zameldowanie od godziny 15:00.
+  </p>
+
+  <div class="finder">
+
+    <h4>Znajdź swój nocleg</h4>
+
+    <p class="finder-sub">
+      Wpisz swoje imię lub nazwisko — pokażemy Ci, gdzie śpisz.
+    </p>
+
+    <div class="finder-field">
+
+      <svg viewBox="0 0 24 24"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="1.8"
+           stroke-linecap="round"
+           stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+
+      <input
+        id="stayInput"
+        class="finder-input"
+        type="search"
+        placeholder="np. Malinowski, Babcia Agata…"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        aria-label="Wyszukaj nocleg">
+
+      <button
+        id="stayClear"
+        class="finder-clear"
+        type="button"
+        aria-label="Wyczyść wyszukiwanie">
+
+        <svg viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+
+      </button>
+
+    </div>
+
+    <p class="finder-status" id="stayStatus" aria-live="polite"></p>
+
+    <ul class="finder-results" id="stayResults"></ul>
+
+  </div>
+
+  <div class="stay-grid">
+
+    <article class="stay-card" id="nocleg-villa">
+      <div class="stay-head">
+        <div class="stay-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10.5L12 4l9 6.5"/>
+            <path d="M5 9.5V20h14V9.5"/>
+            <path d="M10 20v-5h4v5"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="stay-title">Villa Omnia</h4>
+          <p class="stay-sub">Na miejscu wesela · Trębki Nowe 17a</p>
+          <p class="stay-count" data-count></p>
+        </div>
+      </div>
+
+      <ul class="stay-facts">
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h13v4a6 6 0 01-6 6h-1a6 6 0 01-6-6v-4z"/><path d="M17 11h1.5a2.5 2.5 0 010 5H16"/><path d="M8 3v3M12 3v3"/></svg>
+          Śniadanie w cenie noclegu
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          Wymeldowanie do 12:00
+        </li>
+      </ul>
+
+      <ul class="stay-list" data-place="villa"></ul>
+    </article>
+
+    <article class="stay-card" id="nocleg-hotel">
+      <div class="stay-head">
+        <div class="stay-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 19V6"/>
+            <path d="M3 15h18v4"/>
+            <path d="M3 11h8V9a2 2 0 012-2h5a3 3 0 013 3v5"/>
+            <circle cx="7" cy="9" r="1.6"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="stay-title">Hotel Royal Modlin</h4>
+          <p class="stay-sub">
+            <a href="https://maps.app.goo.gl/AvD5yWnxnYqKxXs57" target="_blank" rel="noopener">Pokaż na mapie</a>
+          </p>
+          <p class="stay-count" data-count></p>
+        </div>
+      </div>
+
+      <ul class="stay-facts">
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h13v4a6 6 0 01-6 6h-1a6 6 0 01-6-6v-4z"/><path d="M17 11h1.5a2.5 2.5 0 010 5H16"/><path d="M8 3v3M12 3v3"/></svg>
+          Śniadanie w cenie noclegu
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          Wymeldowanie do 11:00
+        </li>
+      </ul>
+
+      <div class="stay-transport">
+        <p>
+          <strong>Transport z sali do hotelu</strong>
+          Od 00:00 do 5:00 kursuje transport z Villi Omnia do hotelu.
+          Kierowca: <span class="nowrap">786 263 651</span>
+        </p>
+        <a class="call-btn" href="tel:+48786263651">
+          <svg viewBox="0 0 24 24">
+            <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.58 1 1 0 01-.25 1.02l-2.2 2.19z"/>
+          </svg>
+          Zadzwoń do kierowcy
+        </a>
+      </div>
+
+      <ul class="stay-list" data-place="hotel"></ul>
+    </article>
 
   </div>
 
@@ -2265,7 +2800,8 @@ footer p {
       </summary>
 
       <p>
-        Tak! Menu obejmuje opcje mięsne, wegetariańskie i wegańskie.
+        Tak! Oprócz menu tradycyjnego przygotowaliśmy menu wegetariańskie,
+        a dla najmłodszych — menu dziecięce.
         Jeśli masz specjalne wymagania dietetyczne
         (alergie, nietolerancje) — daj nam znać
         przy potwierdzaniu obecności.
@@ -2295,8 +2831,8 @@ footer p {
       <p>
         Nocleg w dniu wesela jest po stronie Młodych —
         nie musicie się o to martwić!
-        Szczegóły dotyczące zakwaterowania
-        przekażemy bliżej terminu.
+        W sekcji <a href="#gdzie-spisz">„Gdzie śpisz?"</a> sprawdzicie,
+        czy nocujecie w Villi Omnia, czy w Hotelu Royal Modlin.
       </p>
     </details>
 
@@ -2630,6 +3166,21 @@ function closeRsvpModal(event) {
 
 
 /* =========================================================
+   WSPÓLNE — WYSZUKIWARKI
+   ========================================================= */
+
+// małe litery, bez polskich znaków — "Józek" znajdziesz wpisując "jozek"
+const norm = s =>
+  s.toLowerCase()
+    .replace(/ł/g, 'l')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '');
+
+const plural = n =>
+  n === 1 ? 'osobę' : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? 'osoby' : 'osób';
+
+
+/* =========================================================
    ROZKŁAD STOLIKÓW + WYSZUKIWARKA
    ========================================================= */
 
@@ -2657,21 +3208,11 @@ const TABLES = [
   const SVG_NS = 'http://www.w3.org/2000/svg';
   const MAX_RESULTS = 8;
 
-  // małe litery, bez polskich znaków — "Józek" znajdziesz wpisując "jozek"
-  const norm = s =>
-    s.toLowerCase()
-      .replace(/ł/g, 'l')
-      .normalize('NFD')
-      .replace(/[̀-ͯ]/g, '');
-
   const svgEl = (name, attrs) => {
     const node = document.createElementNS(SVG_NS, name);
     Object.entries(attrs).forEach(([k, v]) => node.setAttribute(k, v));
     return node;
   };
-
-  const plural = n =>
-    n === 1 ? 'osobę' : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? 'osoby' : 'osób';
 
   const index = [];
   const cards = {};
@@ -2822,6 +3363,225 @@ const TABLES = [
       const more = document.createElement('li');
       more.className = 'finder-more';
       more.textContent = '…i ' + (hits.length - MAX_RESULTS) + ' więcej — zobacz podświetlone stoliki poniżej';
+      results.appendChild(more);
+    }
+  }
+
+  input.addEventListener('input', search);
+
+  input.addEventListener('keydown', e => {
+
+    if (e.key === 'Escape') {
+      input.value = '';
+      search();
+    }
+
+    if (e.key === 'Enter') {
+      const first = results.querySelector('.finder-result');
+      if (first) first.click();
+    }
+  });
+
+  clear.addEventListener('click', () => {
+    input.value = '';
+    search();
+    input.focus();
+  });
+
+})();
+
+
+/* =========================================================
+   NOCLEGI + WYSZUKIWARKA
+   ========================================================= */
+
+const STAYS = {
+  villa: {
+    label: 'Villa Omnia',
+    groups: [
+      ['Wujek Jacek', 'Nataniel'],
+      ['Marcin', 'Edyta'],
+      ['Ciocia Asia', 'Justyna', 'Malwina'],
+      ['Babcia Agata', 'Dziadek Jurek'],
+      ['Ciocia Asia', 'Kacper', 'Kamil Malinowski'],
+      ['Wujek Dominik', 'Ciocia Kasia', 'Zofia', 'Róża'],
+      ['Ciocia Bogusia', 'Babcia Basia'],
+      ['Gracjan', 'Maja'],
+      ['Mama Madzia', 'Tata Wojtek'],
+      ['Babcia Jagoda', 'Blanka'],
+      ['Krzysiek', 'Kinga', 'Kamil', 'Ola'],
+      ['Kamila', 'Artur', 'Wiktor'],
+      ['Kasia', 'Marcin', 'Marysia'],
+      ['Mama Justyna', 'Tata Piotr'],
+      ['Julia', 'Tobiasz', 'Maciek']
+    ]
+  },
+  hotel: {
+    label: 'Hotel Royal Modlin',
+    groups: [
+      ['Wujek Michał', 'Ciocia Asia', 'Wiktor'],
+      ['Julka', 'Sandra'],
+      ['Wujek Olek', 'Ciocia Ania'],
+      ['Wujek Adam', 'Ciocia Basia'],
+      ['Mariola', 'Darek'],
+      ['Mikołaj', 'Weronika', 'Nikodem'],
+      ['Nikola', 'Mateusz'],
+      ['Bejo'],
+      ['Kamilek', 'Julka']
+    ]
+  }
+};
+
+(function initStays() {
+
+  const input   = document.getElementById('stayInput');
+  const clear   = document.getElementById('stayClear');
+  const status  = document.getElementById('stayStatus');
+  const results = document.getElementById('stayResults');
+
+  if (!input) return;
+
+  const MAX_RESULTS = 8;
+
+  const countLabel = n =>
+    n + ' ' + (n === 1 ? 'osoba' : plural(n));
+
+  const index = [];
+  const cards = {};
+
+
+  /* ---------- budowanie list ---------- */
+
+  Object.entries(STAYS).forEach(([key, place]) => {
+
+    const list = document.querySelector('.stay-list[data-place="' + key + '"]');
+    const card = list.closest('.stay-card');
+    cards[key] = card;
+
+    let total = 0;
+
+    place.groups.forEach(group => {
+
+      const li = document.createElement('li');
+      const line = document.createElement('span');
+
+      group.forEach((name, i) => {
+
+        // "A i B" albo "A, B oraz C"
+        if (i > 0) {
+          const last = i === group.length - 1;
+          line.append(last ? (group.length === 2 ? ' i ' : ' oraz ') : ', ');
+        }
+
+        const person = document.createElement('span');
+        person.className = 'person';
+        person.textContent = name;
+        line.appendChild(person);
+
+        const others = group.filter((_, j) => j !== i);
+        index.push({ name, others, words: norm(name).split(/\s+/), place: key, li, person });
+      });
+
+      total += group.length;
+      li.appendChild(line);
+      list.appendChild(li);
+    });
+
+    card.querySelector('[data-count]').textContent = countLabel(total);
+  });
+
+
+  /* ---------- przeskok do miejsca ---------- */
+
+  function focusPlace(key) {
+    const card = cards[key];
+    if (!card) return;
+
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    card.classList.remove('pulse');
+    void card.offsetWidth;
+    card.classList.add('pulse');
+  }
+
+
+  /* ---------- wyszukiwanie ---------- */
+
+  function search() {
+
+    const query = input.value;
+    clear.classList.toggle('show', query.length > 0);
+
+    index.forEach(e => {
+      e.li.classList.remove('match');
+      e.person.classList.remove('match');
+    });
+
+    Object.values(cards).forEach(c => c.classList.remove('hit', 'dim'));
+    results.replaceChildren();
+
+    const tokens = norm(query).split(/\s+/).filter(Boolean);
+
+    if (!tokens.length) {
+      status.textContent = '';
+      return;
+    }
+
+    const hits = index.filter(e =>
+      tokens.every(t => e.words.some(w => w.startsWith(t)))
+    );
+
+    if (!hits.length) {
+      status.textContent = 'Nie znaleźliśmy „' + query.trim() + '". Spróbuj samego imienia albo napisz do nas.';
+      return;
+    }
+
+    const hitPlaces = new Set(hits.map(h => h.place));
+
+    hits.forEach(h => {
+      h.li.classList.add('match');
+      h.person.classList.add('match');
+    });
+
+    Object.entries(cards).forEach(([key, c]) =>
+      c.classList.add(hitPlaces.has(key) ? 'hit' : 'dim')
+    );
+
+    status.textContent = 'Znaleziono ' + hits.length + ' ' + plural(hits.length);
+
+    hits.slice(0, MAX_RESULTS).forEach(h => {
+
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'finder-result';
+
+      const who = document.createElement('span');
+      who.className = 'who';
+      who.textContent = h.name;
+
+      if (h.others.length) {
+        const withWho = document.createElement('small');
+        withWho.className = 'with';
+        withWho.textContent = 'razem z: ' + h.others.join(', ');
+        who.appendChild(withWho);
+      }
+
+      const where = document.createElement('span');
+      where.className = 'where place';
+      where.textContent = STAYS[h.place].label;
+
+      btn.append(who, where);
+      btn.addEventListener('click', () => focusPlace(h.place));
+
+      li.appendChild(btn);
+      results.appendChild(li);
+    });
+
+    if (hits.length > MAX_RESULTS) {
+      const more = document.createElement('li');
+      more.className = 'finder-more';
+      more.textContent = '…i ' + (hits.length - MAX_RESULTS) + ' więcej — zobacz podświetlone nazwiska poniżej';
       results.appendChild(more);
     }
   }
